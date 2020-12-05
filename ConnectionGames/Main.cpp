@@ -42,16 +42,28 @@ int main()
 	{
 		Board newGame;
 		sf::RenderWindow window(sf::VideoMode(300, 300, 32), "Connection Games", sf::Style::Fullscreen);
+		newGame.drawBoard(xCoord, yCoord, yProiection, shapeSide, maxCol, maxDepth, presentProiection);
 		while (window.isOpen())
 		{
+			newGame.repaint(window);
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
-				if (event.type == sf::Event::Closed)
+				switch (event.type)
+				{
+				case sf::Event::Closed:
 					window.close();
+					break;
+				case sf::Event::MouseButtonPressed:
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						int xCoord = sf::Mouse::getPosition().x;
+						int yCoord = sf::Mouse::getPosition().y;
+						newGame.clickHexagon(xCoord, yCoord);
+					}
+					break;
+				}
 			}
-			newGame.drawBoard(window, xCoord, yCoord, yProiection, shapeSide, maxCol, maxDepth, presentProiection);
-			window.display();
 		}
 	}
 	return 0;
