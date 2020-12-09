@@ -1,5 +1,6 @@
 # ConnectionGames
 Using C++ SFML
+
 The purpose of this project is the possibility to play three popular connection games( Havannah, Hex, and Y). 
 
 Each of them has a characteristic shape for the game board (Havannah - Hexagon, Hex - Rhombus, Y - Triangle).
