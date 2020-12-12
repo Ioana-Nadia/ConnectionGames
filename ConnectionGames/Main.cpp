@@ -1,4 +1,6 @@
 #include "Board.h"
+#include <queue>
+#include "Player.h"
 
 int main()
 {
@@ -43,6 +45,12 @@ int main()
 		Board newGame;
 		sf::RenderWindow window(sf::VideoMode(300, 300, 32), "Connection Games", sf::Style::Fullscreen);
 		newGame.drawBoard(xCoord, yCoord, yProiection, shapeSide, maxCol, maxDepth, presentProiection);
+		Player firstPlayer(sf::Color::White);
+		Player secondPlayer(sf::Color::Black);
+		std::queue<Player> turn;
+		turn.push(firstPlayer);
+		turn.push(secondPlayer);
+		int moveNumber = 0;
 		while (window.isOpen())
 		{
 			newGame.repaint(window);
@@ -59,7 +67,20 @@ int main()
 					{
 						int xCoord = sf::Mouse::getPosition().x;
 						int yCoord = sf::Mouse::getPosition().y;
-						newGame.clickHexagon(xCoord, yCoord);
+						Player currentTurn = turn.front();
+						if (moveNumber == 1)
+						{
+							newGame.pieRule();//if I pressed the button, call pieRule function
+							turn.pop();
+							turn.push(currentTurn);
+						}
+						else
+							if (newGame.clickHexagon(xCoord, yCoord, currentTurn.getPlayerColor()) == true)
+							{
+								turn.pop();
+								turn.push(currentTurn);
+							}
+						++moveNumber;
 					}
 					break;
 				}
