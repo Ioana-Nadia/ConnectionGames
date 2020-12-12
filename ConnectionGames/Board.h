@@ -10,7 +10,8 @@ public:
 	void drawBoard(int xCoord, int yCoord, int yProiection, int shapeSide, int  maxCol, int maxDepth, bool presentProiection);
 	void repaint(sf::RenderWindow& window);
 	bool verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY);
-	void clickHexagon(int xCoord, int yCoord);
+	bool clickHexagon(int xCoord, int yCoord, sf::Color color);
+	void pieRule();
 	std::vector<std::vector<std::pair<int, int>> > getMatrix() const;
 	std::vector<sf::CircleShape> getButtonsVector() const;
 private:

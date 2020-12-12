@@ -64,7 +64,7 @@ bool Board::verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY)
 	return false;
 }
 
-void Board::clickHexagon(int xCoord, int yCoord)
+bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color)
 {
 	int length = hexButtons.size();
 	for (int index = 0; index < length; ++index)
@@ -73,10 +73,23 @@ void Board::clickHexagon(int xCoord, int yCoord)
 		int hexY = hexButtons[index].getPosition().y;
 		if (verifyCoordinates(xCoord, yCoord, hexX, hexY))
 		{
-			hexButtons[index].setFillColor(sf::Color::Magenta);
+			if (hexButtons[index].getFillColor() == sf::Color::Cyan)
+			{
+				hexButtons[index].setFillColor(color);
+				return true;
+			}
 			break;
 		}
 	}
+	return false;
+}
+
+void Board::pieRule()
+{
+	int length = hexButtons.size();
+	for (int index = 0; index < length; ++index)
+		if (hexButtons[index].getFillColor() == sf::Color::White)
+			hexButtons[index].setFillColor(sf::Color::Black);
 }
 
 std::vector<std::vector<std::pair<int, int>>> Board::getMatrix() const
