@@ -3,10 +3,15 @@
 void Board::createBoardMatrix()
 {
 	const int pairCoord = -100;
-	std::pair<int, int> defaultPair = std::pair<int, int>(pairCoord, pairCoord);
+	sf::CircleShape hexagon(hexRadius, 6);
+	hexagon.setPosition(pairCoord, pairCoord);
+	hexagon.setFillColor(sf::Color::Cyan);
+	hexagon.setOutlineThickness(3);
+	hexagon.setOutlineColor(sf::Color::Red);
+	std::tuple<int, int, sf::CircleShape> defaultTuple = std::tuple<int, int, sf::CircleShape>(pairCoord, pairCoord, hexagon);
 	for (int index = 0; index < nrLines; ++index)
 	{
-		std::vector<std::pair<int, int>> line(nrColumns, defaultPair);
+		std::vector<std::tuple<int, int, sf::CircleShape>> line(nrColumns, defaultTuple);
 		coordinatesMatrix.push_back(line);
 	}
 }
@@ -19,22 +24,14 @@ void Board::drawBoard(int xCoord, int yCoord, int yProiection, int shapeSide, in
 	{
 		for (int secondIndex = 0; secondIndex <= maxCol; ++secondIndex)
 		{
-			sf::CircleShape hexagon(hexRadius, 6);
-			hexagon.setPosition(xCoord, yCoord);
-			hexagon.setFillColor(sf::Color::Cyan);
-			hexagon.setOutlineThickness(3);
-			hexagon.setOutlineColor(sf::Color::Red);
-			coordinatesMatrix[index][secondIndex] = std::pair<int, int>(xCoord, yCoord);
-			hexButtons.push_back(hexagon);
+			std::get<0>(coordinatesMatrix[index][secondIndex]) = xCoord;
+			std::get<1>(coordinatesMatrix[index][secondIndex]) = yCoord;
+			std::get<2>(coordinatesMatrix[index][secondIndex]).setPosition(xCoord, yCoord);
 			if (index != shapeSide - 1 && presentProiection)
 			{
-				sf::CircleShape hexagonSecond(hexRadius, 6);
-				hexagonSecond.setPosition(xCoord, yProiection);
-				hexagonSecond.setFillColor(sf::Color::Cyan);
-				hexagonSecond.setOutlineThickness(3);
-				hexagonSecond.setOutlineColor(sf::Color::Red);
-				coordinatesMatrix[maxDepth - index][secondIndex] = std::pair<int, int>(xCoord, yProiection);
-				hexButtons.push_back(hexagonSecond);
+				std::get<0>(coordinatesMatrix[maxDepth - index][secondIndex]) = xCoord;
+				std::get<1>(coordinatesMatrix[maxDepth - index][secondIndex]) = yProiection;
+				std::get<2>(coordinatesMatrix[maxDepth - index][secondIndex]).setPosition(xCoord, yProiection);
 			}
 			xCoord += xIncrease;
 		}
@@ -50,9 +47,13 @@ void Board::drawBoard(int xCoord, int yCoord, int yProiection, int shapeSide, in
 
 void Board::repaint(sf::RenderWindow& window)
 {
-	int length = hexButtons.size();
-	for (int index = 0; index < length; ++index) {
-		window.draw(hexButtons[index]);
+	int lengthMatrix = coordinatesMatrix.size();
+	for (int index = 0; index < lengthMatrix; ++index)
+	{
+		int lengthLine = coordinatesMatrix[index].size();
+		for (int secondIndex = 0; secondIndex < lengthLine; ++secondIndex)
+			if (std::get<0>(coordinatesMatrix[index][secondIndex]) != -100 && std::get<1>(coordinatesMatrix[index][secondIndex]) != -100)
+				window.draw(std::get<2>(coordinatesMatrix[index][secondIndex]));
 	}
 	window.display();
 }
@@ -66,19 +67,23 @@ bool Board::verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY)
 
 bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color)
 {
-	int length = hexButtons.size();
-	for (int index = 0; index < length; ++index)
+	int lengthMatrix = coordinatesMatrix.size();
+	for (int index = 0; index < lengthMatrix; ++index)
 	{
-		int hexX = hexButtons[index].getPosition().x;
-		int hexY = hexButtons[index].getPosition().y;
-		if (verifyCoordinates(xCoord, yCoord, hexX, hexY))
+		int lengthLine = coordinatesMatrix[index].size();
+		for (int secondIndex = 0; secondIndex < lengthLine; ++secondIndex)
 		{
-			if (hexButtons[index].getFillColor() == sf::Color::Cyan)
+			int hexX = std::get<2>(coordinatesMatrix[index][secondIndex]).getPosition().x;
+			int hexY = std::get<2>(coordinatesMatrix[index][secondIndex]).getPosition().y;
+			if (verifyCoordinates(xCoord, yCoord, hexX, hexY))
 			{
-				hexButtons[index].setFillColor(color);
-				return true;
+				if (std::get<2>(coordinatesMatrix[index][secondIndex]).getFillColor() == sf::Color::Cyan)
+				{
+					std::get<2>(coordinatesMatrix[index][secondIndex]).setFillColor(color);
+					return true;
+				}
+				break;
 			}
-			break;
 		}
 	}
 	return false;
@@ -86,18 +91,17 @@ bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color)
 
 void Board::pieRule()
 {
-	int length = hexButtons.size();
-	for (int index = 0; index < length; ++index)
-		if (hexButtons[index].getFillColor() == sf::Color::White)
-			hexButtons[index].setFillColor(sf::Color::Black);
+	int lengthMatrix = coordinatesMatrix.size();
+	for (int index = 0; index < lengthMatrix; ++index)
+	{
+		int lengthLine = coordinatesMatrix[index].size();
+		for (int secondIndex = 0; secondIndex < lengthLine; ++secondIndex)
+			if (std::get<2>(coordinatesMatrix[index][secondIndex]).getFillColor() == sf::Color::White)
+				std::get<2>(coordinatesMatrix[index][secondIndex]).setFillColor(sf::Color::Black);
+	}
 }
 
-std::vector<std::vector<std::pair<int, int>>> Board::getMatrix() const
+std::vector<std::vector<std::tuple<int, int, sf::CircleShape> > > Board::getMatrix() const
 {
-	return coordinatesMatrix;
-}
-
-std::vector<sf::CircleShape> Board::getButtonsVector() const
-{
-	return hexButtons;
+	return this->coordinatesMatrix;
 }

@@ -3,14 +3,8 @@
 
 class Player {
 public:
-	Player(sf::Color color)
-	{
-		this->color = color;
-	}
-	sf::Color getPlayerColor()
-	{
-		return this->color;
-	}
+	Player(sf::Color color);
+	sf::Color getPlayerColor();
 private:
 	sf::Color color;
 };
