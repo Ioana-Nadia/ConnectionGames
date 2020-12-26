@@ -12,12 +12,10 @@ public:
 	bool verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY);
 	bool clickHexagon(int xCoord, int yCoord, sf::Color color);
 	void pieRule();
-	std::vector<std::vector<std::pair<int, int>> > getMatrix() const;
-	std::vector<sf::CircleShape> getButtonsVector() const;
+	std::vector<std::vector<std::tuple<int, int, sf::CircleShape>> > getMatrix() const;
 private:
 	const int hexRadius = 20;
 	const int xIncrease = 41, yIncrease = 38;
 	const int nrLines = 23, nrColumns = 20;
-	std::vector<std::vector<std::pair<int, int>> > coordinatesMatrix;
-	std::vector<sf::CircleShape> hexButtons;
+	std::vector<std::vector<std::tuple<int, int, sf::CircleShape>> > coordinatesMatrix;
 };
