@@ -113,6 +113,129 @@ void Board::pieRule()
 	}
 }
 
+void Board::configurePieRule(sf::RectangleShape& rectButton, sf::Text& boardText, sf::Font& boardFont)
+{
+	const int pieRuleX = 300;
+	const int pieRuleY = 60;
+	rectButton.setPosition(pieRuleX, pieRuleY);
+	rectButton.setFillColor(sf::Color::Transparent);
+	rectButton.setOutlineThickness(4);
+	rectButton.setOutlineColor(sf::Color::Transparent);
+	boardText.setFont(boardFont);
+	boardText.setString("Pie rule?");
+	boardText.setCharacterSize(25);
+	const int textX = 340, textY = 75;
+	boardText.setPosition(textX, textY);
+	boardText.setOutlineThickness(2);
+	boardText.setOutlineColor(sf::Color::Transparent);
+	boardText.setFillColor(sf::Color::Transparent);
+}
+
+void Board::activatePieRuleButton(sf::RectangleShape& rectButton, sf::Text& boardText)
+{
+	sf::Color blueOutline(0, 0, 205);
+	rectButton.setFillColor(sf::Color::Yellow);
+	rectButton.setOutlineColor(blueOutline);
+	boardText.setOutlineColor(blueOutline);
+	boardText.setFillColor(sf::Color::White);
+}
+
+void Board::deactivatePieRuleButton(sf::RectangleShape& rectButton, sf::Text& boardText)
+{
+	rectButton.setFillColor(sf::Color::Transparent);
+	rectButton.setOutlineColor(sf::Color::Transparent);
+	boardText.setOutlineColor(sf::Color::Transparent);
+	boardText.setFillColor(sf::Color::Transparent);
+}
+
+void Board::configureWindowDesign(sf::RectangleShape& rectangle)
+{
+	rectangle.setPosition(248, 0);
+	rectangle.setOutlineThickness(5);
+	rectangle.setOutlineColor(sf::Color::Black);
+	sf::Color backColor(105, 105, 105);
+	rectangle.setFillColor(backColor);
+}
+
+void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxDepth, int yProiection, bool presentProiection)
+{
+	sf::RenderWindow window(sf::VideoMode(300, 300, 32), "Connection Games", sf::Style::Fullscreen);
+	drawBoard(xCoord, yCoord, yProiection, shapeSide, maxCol, maxDepth, presentProiection);
+	Player firstPlayer(sf::Color::White);
+	Player secondPlayer(sf::Color::Black);
+	std::queue<Player> turn;
+	turn.push(firstPlayer);
+	turn.push(secondPlayer);
+	int moveNumber = 0;
+	sf::Texture texture;
+	texture.loadFromFile("boardBackground.jpg");
+	sf::Sprite windowSprite;
+	windowSprite.setTexture(texture);
+	sf::RectangleShape rectangle(sf::Vector2f(1477, 1100));
+	configureWindowDesign(rectangle);
+	sf::RectangleShape rectButton(sf::Vector2f(180, 60));
+	sf::Font boardFont;
+	boardFont.loadFromFile("arial.TTF");
+	sf::Text boardText;
+	configurePieRule(rectButton, boardText, boardFont);
+	sf::SoundBuffer Buffer;
+	Buffer.loadFromFile("pieRuleRing.wav");
+	sf::Sound sound;
+	sound.setBuffer(Buffer);
+	while (window.isOpen())
+	{
+		window.draw(windowSprite);
+		window.draw(rectangle);
+		if (moveNumber == 1)
+		{
+			activatePieRuleButton(rectButton, boardText);
+
+		}
+		window.draw(rectButton);
+		window.draw(boardText);
+		repaint(window);
+		if (moveNumber == 1)
+		{
+			sound.play();
+		}
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+				window.close();
+				break;
+			case sf::Event::MouseButtonPressed:
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					int xCoord = sf::Mouse::getPosition().x;
+					int yCoord = sf::Mouse::getPosition().y;
+					Player currentTurn = turn.front();
+					if (moveNumber == 1 && clickedPieRule(xCoord, yCoord, rectButton))
+					{
+						pieRule();
+						turn.pop();
+						turn.push(currentTurn);
+						++moveNumber;
+						deactivatePieRuleButton(rectButton, boardText);
+						break;
+					}
+					if (clickHexagon(xCoord, yCoord, currentTurn.getPlayerColor()) == true)
+					{
+						turn.pop();
+						turn.push(currentTurn);
+					}
+					++moveNumber;
+					if (moveNumber == 2)
+						deactivatePieRuleButton(rectButton, boardText);
+				}
+				break;
+			}
+		}
+	}
+}
+
 std::vector<std::vector<std::tuple<int, int, sf::CircleShape> > > Board::getMatrix() const
 {
 	return this->coordinatesMatrix;
