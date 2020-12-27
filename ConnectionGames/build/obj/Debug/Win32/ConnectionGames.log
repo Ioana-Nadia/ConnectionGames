@@ -1,1 +1,14 @@
-﻿LINK : fatal error LNK1104: cannot open file 'C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe'
+﻿  Main.cpp
+  ConnectionGames.vcxproj -> C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\openal32.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-d-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-d-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-d-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-d-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-2.dll
+  C:\Users\Ioana\Desktop\GIT\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-d-2.dll
+  11 File(s) copied

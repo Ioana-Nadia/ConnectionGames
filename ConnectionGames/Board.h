@@ -11,6 +11,7 @@ public:
 	void repaint(sf::RenderWindow& window);
 	bool verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY);
 	bool clickHexagon(int xCoord, int yCoord, sf::Color color);
+	bool clickedPieRule(int posX, int posY, sf::RectangleShape& rectButton);
 	void pieRule();
 	std::vector<std::vector<std::tuple<int, int, sf::CircleShape>> > getMatrix() const;
 private:
