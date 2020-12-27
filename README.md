@@ -1,5 +1,5 @@
 # ConnectionGames
-Using C++ SFML
+Using C++, and SFML
 
 The purpose of this project is the possibility to play three popular connection games( Havannah, Hex, and Y). 
 
