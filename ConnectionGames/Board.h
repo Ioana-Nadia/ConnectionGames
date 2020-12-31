@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "Player.h"
 #include <vector>
+#include <string>
 #include <iostream>
 #include <queue>
 
