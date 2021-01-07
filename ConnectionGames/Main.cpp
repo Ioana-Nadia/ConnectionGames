@@ -58,7 +58,7 @@ void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf
 			yCoord = 135;
 			shapeSide = 11;
 			maxCol = 0;
-			maxDepth = 21;
+			maxDepth = 20;
 			yProiection = 895;
 			presentProiection = true;
 		}
@@ -85,6 +85,15 @@ bool verifyAttributes(int& xCoord, int& yCoord, int& shapeSide, int& maxCol, int
 	return false;
 }
 
+void AfisMatrice(std::vector<std::vector<std::tuple<int, int, sf::CircleShape> > >& matrice)
+{
+	for (int i = 0; i < matrice.size(); ++i) {
+		for (int j = 0; j < matrice[i].size(); ++j)
+			std::cout << "( " <<std::get<0>(matrice[i][j]) << " " << std::get<1>(matrice[i][j]) << " )" << "   ";
+		std::cout << "\n";
+	}
+}
+
 int main()
 {
 	int xCoord = -100, yCoord = -100, shapeSide = -100, maxCol = -100, maxDepth= -100, yProiection = -100;
@@ -96,6 +105,7 @@ int main()
 	startTexture.loadFromFile("startWindow.jpeg");
 	sf::Sprite startWindowSprite;
 	startWindowSprite.setTexture(startTexture);
+	std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int> > > matrice;
 	while (startWindow.isOpen())
 	{
 		startWindow.draw(startWindowSprite);
@@ -122,11 +132,26 @@ int main()
 						startWindow.close();
 						Board newGame;
 						newGame.playGame(xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection);
+						matrice = newGame.getMatrix();
 					}
 				}
 				break;
 			}
 		}
+
+	}
+	std::vector<std::pair<int, int>> edgesIndices;
+	HexRules obj;
+	obj.hexEdges(edgesIndices);
+	for (int i = 0; i < edgesIndices.size(); ++i)
+	{
+		std::cout << edgesIndices[i].first << " " << edgesIndices[i].second << "\n";
+
+	}
+	for (int i = 0; i < 23; ++i) {
+		for (int j = 0; j < 20; ++j)
+			std::cout << std::get<3>(matrice[i][j]) << " ";
+		std::cout << "\n";
 	}
 	return 0;
 }
