@@ -10,10 +10,10 @@ void Board::createBoardMatrix()
 	hexagon.setOutlineThickness(3);
 	sf::Color outline(0, 0, 205);
 	hexagon.setOutlineColor(outline);
-	std::tuple<int, int, sf::CircleShape> defaultTuple = std::tuple<int, int, sf::CircleShape>(pairCoord, pairCoord, hexagon);
+	std::tuple<int, int, sf::CircleShape, int> defaultTuple = std::tuple<int, int, sf::CircleShape, int>(pairCoord, pairCoord, hexagon, -1);
 	for (int index = 0; index < nrLines; ++index)
 	{
-		std::vector<std::tuple<int, int, sf::CircleShape>> line(nrColumns, defaultTuple);
+		std::vector<std::tuple<int, int, sf::CircleShape, int>> line(nrColumns, defaultTuple);
 		coordinatesMatrix.push_back(line);
 	}
 }
@@ -29,11 +29,13 @@ void Board::drawBoard(int xCoord, int yCoord, int yProiection, int shapeSide, in
 			std::get<0>(coordinatesMatrix[index][secondIndex]) = xCoord;
 			std::get<1>(coordinatesMatrix[index][secondIndex]) = yCoord;
 			std::get<2>(coordinatesMatrix[index][secondIndex]).setPosition(xCoord, yCoord);
+			std::get<3>(coordinatesMatrix[index][secondIndex]) = 0;
 			if (index != shapeSide - 1 && presentProiection)
 			{
 				std::get<0>(coordinatesMatrix[maxDepth - index][secondIndex]) = xCoord;
 				std::get<1>(coordinatesMatrix[maxDepth - index][secondIndex]) = yProiection;
 				std::get<2>(coordinatesMatrix[maxDepth - index][secondIndex]).setPosition(xCoord, yProiection);
+				std::get<3>(coordinatesMatrix[maxDepth - index][secondIndex]) = 0;
 			}
 			xCoord += xIncrease;
 		}
@@ -236,7 +238,7 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 	}
 }
 
-std::vector<std::vector<std::tuple<int, int, sf::CircleShape> > > Board::getMatrix() const
+std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int> > > Board::getMatrix() const
 {
 	return this->coordinatesMatrix;
 }
