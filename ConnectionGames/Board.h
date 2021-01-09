@@ -16,7 +16,7 @@ public:
 	void drawBoard(int xCoord, int yCoord, int yProiection, int shapeSide, int  maxCol, int maxDepth, bool presentProiection);
 	void repaint(sf::RenderWindow& window);
 	bool verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY);
-	bool clickHexagon(int xCoord, int yCoord, sf::Color color);
+	bool clickHexagon(int xCoord, int yCoord, sf::Color color, int& matrixLine, int& matrixColumn);
 	bool clickedPieRule(int posX, int posY, sf::RectangleShape& rectButton);
 	void pieRule();
 	void configurePieRule(sf::RectangleShape& rectButton, sf::Text& boardText, sf::Font& boardFont);

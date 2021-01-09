@@ -140,18 +140,5 @@ int main()
 		}
 
 	}
-	std::vector<std::pair<int, int>> edgesIndices;
-	HexRules obj;
-	obj.hexEdges(edgesIndices);
-	for (int i = 0; i < edgesIndices.size(); ++i)
-	{
-		std::cout << edgesIndices[i].first << " " << edgesIndices[i].second << "\n";
-
-	}
-	for (int i = 0; i < 23; ++i) {
-		for (int j = 0; j < 20; ++j)
-			std::cout << std::get<3>(matrice[i][j]) << " ";
-		std::cout << "\n";
-	}
 	return 0;
 }
