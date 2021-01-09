@@ -69,7 +69,7 @@ bool Board::verifyCoordinates(int& xCoord, int& yCoord, int& hexX, int& hexY)
 	return false;
 }
 
-bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color)
+bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color, int& matrixLine, int& matrixColumn)
 {
 	int lengthMatrix = coordinatesMatrix.size();
 	sf::Color hexColor(176, 224, 230);
@@ -85,6 +85,8 @@ bool Board::clickHexagon(int xCoord, int yCoord, sf::Color color)
 				if (std::get<2>(coordinatesMatrix[index][secondIndex]).getFillColor() == hexColor)
 				{
 					std::get<2>(coordinatesMatrix[index][secondIndex]).setFillColor(color);
+					matrixLine = index;
+					matrixColumn = secondIndex;
 					return true;
 				}
 				break;
@@ -223,8 +225,15 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 						deactivatePieRuleButton(rectButton, boardText);
 						break;
 					}
-					if (clickHexagon(xCoord, yCoord, currentTurn.getPlayerColor()) == true)
+					int matrixLine = -1, matrixColumn = -1;
+					if (clickHexagon(xCoord, yCoord, currentTurn.getPlayerColor(), matrixLine, matrixColumn) == true)
 					{
+						std::vector<std::pair<int, int>> edgesIndices;
+						std::vector<bool> foundEdges;
+						std::array<std::pair<int, int>, 6> neighboursDirections = { { std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 1), std::make_pair(1, 0), std::make_pair(0, -1) } };
+						HexRules hexObject(edgesIndices, foundEdges);
+						if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, neighboursDirections, edgesIndices) == true)
+							std::cout << "Game won!";
 						turn.pop();
 						turn.push(currentTurn);
 					}

@@ -24,6 +24,12 @@ void HexRules::hexEdges(std::vector<std::pair<int, int>>& edgesIndices)
 	edgesIndices.push_back(newPair);
 }
 
+HexRules::HexRules(std::vector<std::pair<int, int>>& edgesIndices, std::vector<bool>& foundEdges)
+{
+	hexEdges(edgesIndices);
+	foundEdges = std::vector<bool>(edgesNumber, false);
+}
+
 const int HexRules::getEdgesNumber() const
 {
 	return this->edgesNumber;
@@ -92,7 +98,8 @@ bool HexRules::specialCases(std::pair<int, int>& indices, std::vector<bool>& fou
 
 void HexRules::whichEdge(std::pair<int, int>& indices, std::vector<bool>& foundEdges)
 {
-	if (!specialCases(indices, foundEdges))
+	bool specialCase = specialCases(indices, foundEdges);
+	if (specialCase == false)
 	{
 		if ((indices.first >= 1 && indices.first <= 9) && indices.second == 0)
 			foundEdges[0] = true;
@@ -117,9 +124,50 @@ void HexRules::edge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<in
 		whichEdge(indices, foundEdges);
 }
 
-bool HexRules::winningCondition(std::vector<int>& foundEdges)
+bool HexRules::winningCondition(std::vector<bool>& foundEdges)
 {
 	if ((foundEdges[0] == true && foundEdges[2] == true) || (foundEdges[1] == true && foundEdges[3] == true))
+		return true;
+	return false;
+}
+
+bool HexRules::checkHexagonNeighbour(std::pair<int, int>& position, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, sf::Color& color)
+{
+	const int nrLines = 23, nrColumns = 20;
+	if ((position.first >= 0 && position.first < nrLines) && (position.second >= 0 && position.second < nrColumns))
+		if (std::get<2>(matrix[position.first][position.second]).getFillColor() == color)
+			return true;
+	return false;
+}
+
+bool HexRules::hexBfs(std::vector<bool>& foundEdges, int matrixLine, int matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, std::array<std::pair<int, int>, 6>& neighboursDirections, std::vector<std::pair<int, int>>& edgesIndices)
+{
+	bfsMatrix = matrix;
+	std::queue<std::pair<int, int>> bfsQueue;
+	std::pair<int, int> startPosition = std::pair<int, int>(matrixLine, matrixColumn);
+	bfsQueue.push(startPosition);
+	sf::Color color = std::get<2>(bfsMatrix[matrixLine][matrixColumn]).getFillColor();
+	std::get<3>(bfsMatrix[matrixLine][matrixColumn]) = 1;
+	int roadIndex = 2;
+	while (!bfsQueue.empty())
+	{
+		std::pair<int, int> firstElement = bfsQueue.front();
+		edge(edgesIndices, firstElement, foundEdges);
+		for (int index = 0; index < neighboursDirections.size(); ++index)
+		{
+			std::pair<int, int> coordinates = firstElement;
+			coordinates.first = coordinates.first + neighboursDirections[index].first;
+			coordinates.second = coordinates.second + neighboursDirections[index].second;
+			if (checkHexagonNeighbour(coordinates, bfsMatrix, color) && std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) == 0)
+			{
+				bfsQueue.push(coordinates);
+				std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) = roadIndex;
+			}
+		}
+		++roadIndex;
+		bfsQueue.pop();
+	}
+	if (winningCondition(foundEdges))
 		return true;
 	return false;
 }
