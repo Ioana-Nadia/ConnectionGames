@@ -27,6 +27,12 @@
     <ClCompile Include="HexRules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="YRules.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAttributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -36,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HexRules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="YRules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

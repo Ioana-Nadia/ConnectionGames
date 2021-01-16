@@ -27,38 +27,10 @@ void HexRules::hexEdges(std::vector<std::pair<int, int>>& edgesIndices)
 HexRules::HexRules(std::vector<std::pair<int, int>>& edgesIndices, std::vector<bool>& foundEdges)
 {
 	hexEdges(edgesIndices);
-	foundEdges = std::vector<bool>(edgesNumber, false);
+	foundEdges = std::vector<bool>(hexEdgesNumber, false);
 }
 
-const int HexRules::getEdgesNumber() const
-{
-	return this->edgesNumber;
-}
-
-bool HexRules::isInEdge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<int, int>& indices, int left, int right)
-{
-	while (left <= right)
-	{
-		int middle = (left + right) / 2;
-		if (edgesIndices[middle] == indices)
-			return true;
-		if (indices.first == edgesIndices[middle].first)
-		{
-			if (indices.second > edgesIndices[middle].second)
-				return isInEdge(edgesIndices, indices, middle + 1, right);
-			return isInEdge(edgesIndices, indices, left, middle - 1);
-		}
-		else
-		{
-			if (indices.first > edgesIndices[middle].first)
-				return isInEdge(edgesIndices, indices, middle + 1, right);
-			return isInEdge(edgesIndices, indices, left, middle - 1);
-		}
-	}
-	return false;
-}
-
-bool HexRules::specialCases(std::pair<int, int>& indices, std::vector<bool>& foundEdges)
+bool HexRules::hexSpecialCases(std::pair<int, int>& indices, std::vector<bool>& foundEdges)
 {
 	if (indices.first == 0 && indices.second == 0)
 	{
@@ -96,9 +68,9 @@ bool HexRules::specialCases(std::pair<int, int>& indices, std::vector<bool>& fou
 	return false;
 }
 
-void HexRules::whichEdge(std::pair<int, int>& indices, std::vector<bool>& foundEdges)
+void HexRules::hexWhichEdge(std::pair<int, int>& indices, std::vector<bool>& foundEdges)
 {
-	bool specialCase = specialCases(indices, foundEdges);
+	bool specialCase = hexSpecialCases(indices, foundEdges);
 	if (specialCase == false)
 	{
 		if ((indices.first >= 1 && indices.first <= 9) && indices.second == 0)
@@ -118,32 +90,23 @@ void HexRules::whichEdge(std::pair<int, int>& indices, std::vector<bool>& foundE
 	}
 }
 
-void HexRules::edge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<int, int>& indices, std::vector<bool>& foundEdges)
+void HexRules::hexEdge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<int, int>& indices, std::vector<bool>& foundEdges)
 {
 	std::cout << indices.first << " " << indices.second << "\n";
 	if (isInEdge(edgesIndices, indices, 0, edgesIndices.size() - 1))
 	{
 		std::cout << "E in coaja!" << "\n";
-		whichEdge(indices, foundEdges);
+		hexWhichEdge(indices, foundEdges);
 	}
 	for (int index = 0; index < foundEdges.size(); ++index)
 		std::cout << foundEdges[index] << " ";
 	std::cout << "\n";
 }
 
-bool HexRules::winningCondition(std::vector<bool>& foundEdges)
+bool HexRules::hexWinningCondition(std::vector<bool>& foundEdges)
 {
 	if ((foundEdges[0] == true && foundEdges[2] == true) || (foundEdges[1] == true && foundEdges[3] == true))
 		return true;
-	return false;
-}
-
-bool HexRules::checkHexagonNeighbour(std::pair<int, int>& position, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, sf::Color& color)
-{
-	const int nrLines = 23, nrColumns = 20;
-	if ((position.first >= 0 && position.first < nrLines) && (position.second >= 0 && position.second < nrColumns))
-		if (std::get<2>(matrix[position.first][position.second]).getFillColor() == color)
-			return true;
 	return false;
 }
 
@@ -162,7 +125,7 @@ bool HexRules::hexBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matri
 	while (!bfsQueue.empty())
 	{
 		std::pair<int, int> firstElement = bfsQueue.front();
-		edge(edgesIndices, firstElement, foundEdges);
+		hexEdge(edgesIndices, firstElement, foundEdges);
 		std::array<std::pair<int, int>, 6> neighboursDirections;
 		if (firstElement.first >= 0 && firstElement.first <= 9)
 			neighboursDirections = directionsFirstHalf;
@@ -193,7 +156,7 @@ bool HexRules::hexBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matri
 			std::cout << std::get<3>(bfsMatrix[i][j]) << " ";
 		std::cout << "\n";
 	}
-	if (winningCondition(foundEdges))
+	if (hexWinningCondition(foundEdges))
 		return true;
 	return false;
 }
