@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "Player.h"
 #include "HexRules.h"
+#include "YRules.h"
 #include <vector>
 #include <array>
 #include <string>
@@ -23,7 +24,7 @@ public:
 	void activatePieRuleButton(sf::RectangleShape& rectButton, sf::Text& boardText);
 	void deactivatePieRuleButton(sf::RectangleShape& rectButton, sf::Text& boardText);
 	void configureWindowDesign(sf::RectangleShape& rectangle);
-	void playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxDepth, int yProiection, bool presentProiection);
+	void playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxDepth, int yProiection, bool presentProiection, int chosenGameIndice);
 	std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> > getMatrix() const;
 private:
 	const int hexRadius = 20;

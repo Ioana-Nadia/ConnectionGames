@@ -161,7 +161,7 @@ void Board::configureWindowDesign(sf::RectangleShape& rectangle)
 	rectangle.setFillColor(backColor);
 }
 
-void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxDepth, int yProiection, bool presentProiection)
+void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxDepth, int yProiection, bool presentProiection, int chosenGameIndice)
 {
 	sf::RenderWindow window(sf::VideoMode(300, 300, 32), "Connection Games", sf::Style::Fullscreen);
 	drawBoard(xCoord, yCoord, yProiection, shapeSide, maxCol, maxDepth, presentProiection);
@@ -230,10 +230,18 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 					{
 						std::vector<std::pair<int, int>> edgesIndices;
 						std::vector<bool> foundEdges;
-						HexRules hexObject(edgesIndices, foundEdges);
-						//std::cout << neighboursDirections.size() << "\n";
-						if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
-							std::cout << "Game won!";
+						if (chosenGameIndice == 2)
+						{
+							HexRules hexObject(edgesIndices, foundEdges);
+							if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
+								std::cout << "HEX Game won!";
+						}
+						else
+						{
+							YRules yObject(edgesIndices, foundEdges);
+							if (yObject.yBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
+								std::cout << "Y Game won!";
+						}
 						turn.pop();
 						turn.push(currentTurn);
 					}

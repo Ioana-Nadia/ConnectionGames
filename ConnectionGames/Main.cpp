@@ -37,7 +37,7 @@ bool chosenGame(sf::CircleShape& button,int x, int y, int diameter)
 	return false;
 }
 
-void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf::CircleShape& yLogo, int& x, int& y, int& xCoord, int& yCoord, int& shapeSide, int& maxCol, int& maxDepth, int& yProiection, bool& presentProiection)
+void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf::CircleShape& yLogo, int& x, int& y, int& xCoord, int& yCoord, int& shapeSide, int& maxCol, int& maxDepth, int& yProiection, bool& presentProiection, int& chosenGameIndice)
 {
 	int diameter = 200;
 	if (chosenGame(havLogo, x, y, diameter))
@@ -49,6 +49,7 @@ void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf
 		maxDepth = 18;
 		yProiection = 864;
 		presentProiection = true;
+		chosenGameIndice = 1;
 	}
 	else
 	{
@@ -61,6 +62,7 @@ void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf
 			maxDepth = 20;
 			yProiection = 895;
 			presentProiection = true;
+			chosenGameIndice = 2;
 		}
 		else
 		{
@@ -73,6 +75,7 @@ void chosenGameAttributes(sf::CircleShape& havLogo, sf::CircleShape& hexLogo, sf
 				maxDepth = 12;
 				yProiection = -100;
 				presentProiection = false;
+				chosenGameIndice = 3;
 			}
 		}
 	}
@@ -85,18 +88,10 @@ bool verifyAttributes(int& xCoord, int& yCoord, int& shapeSide, int& maxCol, int
 	return false;
 }
 
-void AfisMatrice(std::vector<std::vector<std::tuple<int, int, sf::CircleShape> > >& matrice)
-{
-	for (int i = 0; i < matrice.size(); ++i) {
-		for (int j = 0; j < matrice[i].size(); ++j)
-			std::cout << "( " <<std::get<0>(matrice[i][j]) << " " << std::get<1>(matrice[i][j]) << " )" << "   ";
-		std::cout << "\n";
-	}
-}
-
 int main()
 {
 	int xCoord = -100, yCoord = -100, shapeSide = -100, maxCol = -100, maxDepth= -100, yProiection = -100;
+	int chosenGameIndice = -1;
 	bool presentProiection = true;
 	sf::RenderWindow startWindow(sf::VideoMode(300, 300, 32), "Connection Games", sf::Style::Fullscreen);
 	sf::Texture startTexture, havTexture, hexTexture, yTexture;
@@ -126,12 +121,12 @@ int main()
 				{
 					int x = sf::Mouse::getPosition().x;
 					int y = sf::Mouse::getPosition().y;
-					chosenGameAttributes(havLogo, hexLogo, yLogo, x, y, xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection);	
+					chosenGameAttributes(havLogo, hexLogo, yLogo, x, y, xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection, chosenGameIndice);	
 					if (verifyAttributes(xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection))
 					{
 						startWindow.close();
 						Board newGame;
-						newGame.playGame(xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection);
+						newGame.playGame(xCoord, yCoord, shapeSide, maxCol, maxDepth, yProiection, presentProiection, chosenGameIndice);
 						matrice = newGame.getMatrix();
 					}
 				}
