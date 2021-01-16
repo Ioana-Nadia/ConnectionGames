@@ -120,8 +120,15 @@ void HexRules::whichEdge(std::pair<int, int>& indices, std::vector<bool>& foundE
 
 void HexRules::edge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<int, int>& indices, std::vector<bool>& foundEdges)
 {
+	std::cout << indices.first << " " << indices.second << "\n";
 	if (isInEdge(edgesIndices, indices, 0, edgesIndices.size() - 1))
+	{
+		std::cout << "E in coaja!" << "\n";
 		whichEdge(indices, foundEdges);
+	}
+	for (int index = 0; index < foundEdges.size(); ++index)
+		std::cout << foundEdges[index] << " ";
+	std::cout << "\n";
 }
 
 bool HexRules::winningCondition(std::vector<bool>& foundEdges)
@@ -140,9 +147,12 @@ bool HexRules::checkHexagonNeighbour(std::pair<int, int>& position, std::vector<
 	return false;
 }
 
-bool HexRules::hexBfs(std::vector<bool>& foundEdges, int matrixLine, int matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, std::array<std::pair<int, int>, 6>& neighboursDirections, std::vector<std::pair<int, int>>& edgesIndices)
+bool HexRules::hexBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, std::vector<std::pair<int, int>>& edgesIndices)
 {
 	bfsMatrix = matrix;
+	std::array<std::pair<int, int>, 6> directionsFirstHalf = { { std::make_pair(0, -1), std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 1), std::make_pair(1, 0) } };
+	std::array<std::pair<int, int>, 6> directionsMiddle = { { std::make_pair(0, -1), std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(1, -1) } };
+	std::array<std::pair<int, int>, 6> directionsSecondHalf = { { std::make_pair(0, -1), std::make_pair(-1, 0), std::make_pair(-1, 1), std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(1, -1) } };
 	std::queue<std::pair<int, int>> bfsQueue;
 	std::pair<int, int> startPosition = std::pair<int, int>(matrixLine, matrixColumn);
 	bfsQueue.push(startPosition);
@@ -153,6 +163,16 @@ bool HexRules::hexBfs(std::vector<bool>& foundEdges, int matrixLine, int matrixC
 	{
 		std::pair<int, int> firstElement = bfsQueue.front();
 		edge(edgesIndices, firstElement, foundEdges);
+		std::array<std::pair<int, int>, 6> neighboursDirections;
+		if (firstElement.first >= 0 && firstElement.first <= 9)
+			neighboursDirections = directionsFirstHalf;
+		else
+		{
+			if (firstElement.first == 10)
+				neighboursDirections = directionsMiddle;
+			else
+				neighboursDirections = directionsSecondHalf;
+		}
 		for (int index = 0; index < neighboursDirections.size(); ++index)
 		{
 			std::pair<int, int> coordinates = firstElement;
@@ -166,6 +186,12 @@ bool HexRules::hexBfs(std::vector<bool>& foundEdges, int matrixLine, int matrixC
 		}
 		++roadIndex;
 		bfsQueue.pop();
+	}
+	for (int i = 0; i < bfsMatrix.size(); ++i)
+	{
+		for (int j = 0; j < bfsMatrix[i].size(); ++j)
+			std::cout << std::get<3>(bfsMatrix[i][j]) << " ";
+		std::cout << "\n";
 	}
 	if (winningCondition(foundEdges))
 		return true;

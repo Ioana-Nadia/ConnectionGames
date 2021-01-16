@@ -15,7 +15,7 @@ public:
 	void edge(std::vector<std::pair<int, int>>& edgesIndices, std::pair<int, int>& indices, std::vector<bool>& foundEdges);
 	bool winningCondition(std::vector<bool>& foundEdges);
 	bool checkHexagonNeighbour(std::pair<int, int>& position, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> >& matrix, sf::Color& color);
-	bool hexBfs(std::vector<bool>& foundEdges, int matrixLine, int matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> >& matrix, std::array<std::pair<int, int>, 6>& neighboursDirections, std::vector<std::pair<int, int>>& edgesIndices);
+	bool hexBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> >& matrix, std::vector<std::pair<int, int>>& edgesIndices);
 private:
 	const int edgesNumber = 4;
 	std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> > bfsMatrix;
