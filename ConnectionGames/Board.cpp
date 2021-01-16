@@ -230,9 +230,9 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 					{
 						std::vector<std::pair<int, int>> edgesIndices;
 						std::vector<bool> foundEdges;
-						std::array<std::pair<int, int>, 6> neighboursDirections = { { std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 1), std::make_pair(1, 0), std::make_pair(0, -1) } };
 						HexRules hexObject(edgesIndices, foundEdges);
-						if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, neighboursDirections, edgesIndices) == true)
+						//std::cout << neighboursDirections.size() << "\n";
+						if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
 							std::cout << "Game won!";
 						turn.pop();
 						turn.push(currentTurn);
