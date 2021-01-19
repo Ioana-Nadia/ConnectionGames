@@ -1,73 +1,23 @@
-﻿  Board.cpp
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(6,26): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(31,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(31,67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(37,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(37,79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(81,13): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(82,13): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(101,47): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(101,21): warning C4244: 'initializing': conversion from 'const T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(102,47): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(102,21): warning C4244: 'initializing': conversion from 'const T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  HexRules.cpp
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(101,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(139,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(153,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(155,21): warning C4018: '<': signed/unsigned mismatch
-  Main.cpp
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Main.cpp(5,29): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Main.cpp(33,13): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Main.cpp(34,13): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  HexRules.cpp
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\HexRules.cpp(101,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\HexRules.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\HexRules.cpp(143,21): warning C4018: '<': signed/unsigned mismatch
   YRules.cpp
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(20,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(84,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(110,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(124,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(126,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\YRules.cpp(20,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\YRules.cpp(84,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\YRules.cpp(112,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\YRules.cpp(114,21): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  ConnectionGames.vcxproj -> C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\openal32.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-d-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-d-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-d-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-d-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-2.dll
-  C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-d-2.dll
+  ConnectionGames.vcxproj -> C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\openal32.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-d-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-graphics-d-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-network-d-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-system-d-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-2.dll
+  C:\Users\Ioana\Desktop\newGit\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-window-d-2.dll
   11 File(s) copied

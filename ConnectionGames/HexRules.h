@@ -2,8 +2,6 @@
 #include "Board.h"
 #include "GameAttributes.h"
 #include <iostream>
-#include <queue>
-#include <array>
 
 class HexRules: public GameAttributes {
 public:

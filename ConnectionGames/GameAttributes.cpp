@@ -31,3 +31,20 @@ bool GameAttributes::checkHexagonNeighbour(std::pair<int, int>& position, std::v
 			return true;
 	return false;
 }
+
+void GameAttributes::bfsCommonPart(std::queue<std::pair<int, int>>& bfsQueue, std::pair<int, int>& firstElement, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& bfsMatrix, std::array<std::pair<int, int>, 6>& neighboursDirections, int& roadIndex, sf::Color& color)
+{
+	for (int index = 0; index < neighboursDirections.size(); ++index)
+	{
+		std::pair<int, int> coordinates = firstElement;
+		coordinates.first = coordinates.first + neighboursDirections[index].first;
+		coordinates.second = coordinates.second + neighboursDirections[index].second;
+		if (checkHexagonNeighbour(coordinates, bfsMatrix, color) && std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) == 0)
+		{
+			bfsQueue.push(coordinates);
+			std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) = roadIndex;
+		}
+	}
+	++roadIndex;
+	bfsQueue.pop();
+}

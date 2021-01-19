@@ -136,19 +136,7 @@ bool HexRules::hexBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matri
 			else
 				neighboursDirections = directionsSecondHalf;
 		}
-		for (int index = 0; index < neighboursDirections.size(); ++index)
-		{
-			std::pair<int, int> coordinates = firstElement;
-			coordinates.first = coordinates.first + neighboursDirections[index].first;
-			coordinates.second = coordinates.second + neighboursDirections[index].second;
-			if (checkHexagonNeighbour(coordinates, bfsMatrix, color) && std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) == 0)
-			{
-				bfsQueue.push(coordinates);
-				std::get<3>(bfsMatrix[coordinates.first][coordinates.second]) = roadIndex;
-			}
-		}
-		++roadIndex;
-		bfsQueue.pop();
+		bfsCommonPart(bfsQueue, firstElement, bfsMatrix, neighboursDirections, roadIndex, color);
 	}
 	for (int i = 0; i < bfsMatrix.size(); ++i)
 	{
