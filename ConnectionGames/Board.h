@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Player.h"
+#include "HavannahRules.h"
 #include "HexRules.h"
 #include "YRules.h"
 #include <vector>

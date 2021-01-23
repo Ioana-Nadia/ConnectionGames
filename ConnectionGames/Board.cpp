@@ -230,22 +230,37 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 					{
 						std::vector<std::pair<int, int>> edgesIndices;
 						std::vector<bool> foundEdges;
-						if (chosenGameIndice == 2)
+						if (chosenGameIndice == 1)
 						{
-							HexRules hexObject(edgesIndices, foundEdges);
-							if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
-								std::cout << "HEX Game won!";
+							const int havannahCornersNumber = 6;
+							std::vector<bool> foundCorners;
+							std::array<std::pair<int, int>, havannahCornersNumber> havannahCorners;
+							HavannahRules obj(edgesIndices, foundEdges , havannahCorners, foundCorners);
+							std::pair<int, int> newPair = std::pair<int, int>(matrixLine, matrixColumn);
+							if(obj.havannahBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices, havannahCorners, foundCorners) == true)
+								std::cout << "Havannah Game won!";
 						}
 						else
 						{
-							YRules yObject(edgesIndices, foundEdges);
-							if (yObject.yBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
-								std::cout << "Y Game won!";
+							if (chosenGameIndice == 2)
+							{
+								HexRules hexObject(edgesIndices, foundEdges);
+								if (hexObject.hexBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
+									std::cout << "HEX Game won!";
+							}
+							else
+							{
+								YRules yObject(edgesIndices, foundEdges);
+								if (yObject.yBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices) == true)
+									std::cout << "Y Game won!";
+							}
+
 						}
+
 						turn.pop();
 						turn.push(currentTurn);
+						++moveNumber;
 					}
-					++moveNumber;
 					if (moveNumber == 2)
 						deactivatePieRuleButton(rectButton, boardText);
 				}
