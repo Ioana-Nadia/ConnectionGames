@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="GameAttributes.cpp" />
+    <ClCompile Include="HavannahRules.cpp" />
     <ClCompile Include="HexRules.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -172,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="GameAttributes.h" />
+    <ClInclude Include="HavannahRules.h" />
     <ClInclude Include="HexRules.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="YRules.h" />
