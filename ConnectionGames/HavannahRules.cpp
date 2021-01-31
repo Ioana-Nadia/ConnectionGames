@@ -140,9 +140,6 @@ bool HavannahRules::havannahWinningCondition(std::vector<bool>& foundEdges, std:
 bool HavannahRules::havannahBfs(std::vector<bool>& foundEdges, int& matrixLine, int& matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, std::vector<std::pair<int, int>>& edgesIndices, std::array<std::pair<int, int>, 6>& havannahCorners, std::vector<bool>& foundCorners)
 {
 	bfsMatrix = matrix;
-	std::array<std::pair<int, int>, 6> directionsFirstHalf = { { std::make_pair(0, -1), std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 1), std::make_pair(1, 0) } };
-	std::array<std::pair<int, int>, 6> directionsMiddle = { { std::make_pair(0, -1), std::make_pair(-1, -1), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(1, -1) } };
-	std::array<std::pair<int, int>, 6> directionsSecondHalf = { { std::make_pair(0, -1), std::make_pair(-1, 0), std::make_pair(-1, 1), std::make_pair(0, 1), std::make_pair(1, 0), std::make_pair(1, -1) } };
 	std::queue<std::pair<int, int>> bfsQueue;
 	std::pair<int, int> startPosition = std::pair<int, int>(matrixLine, matrixColumn);
 	bfsQueue.push(startPosition);
@@ -172,6 +169,57 @@ bool HavannahRules::havannahBfs(std::vector<bool>& foundEdges, int& matrixLine, 
 		std::cout << "\n";
 	}
 	if (havannahWinningCondition(foundEdges, foundCorners))
+		return true;
+	return false;
+}
+
+void HavannahRules::havannahCircle(int actualLine, int actualColumn, int beforeLine, int beforeColumn, int startLine, int startColumn, int steps, bool& isCircle, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, sf::Color color, const int mark)
+{
+
+	if (isCircle == false)
+	{
+		if (std::get<3>(matrix[actualLine][actualColumn]) == 1 && (steps > 3))
+		{
+			isCircle = true;
+			return;
+		}
+		if (std::get<3>(matrix[actualLine][actualColumn]) == 0)
+			std::get<3>(matrix[actualLine][actualColumn]) = mark;
+		std::array<std::pair<int, int>, 6> neighboursDirections;
+		if (actualLine >= 0 && actualLine < 9)
+			neighboursDirections = directionsFirstHalf;
+		else
+		{
+			if (actualLine == 9)
+				neighboursDirections = directionsMiddle;
+			else
+				neighboursDirections = directionsSecondHalf;
+		}
+		int length = neighboursDirections.size();
+		for (int index = 0; index < length; ++index)
+		{
+			int nextLine = actualLine + neighboursDirections[index].first;
+			int nextColumn = actualColumn + neighboursDirections[index].second;
+			std::pair<int, int> neighbourPosition = std::pair<int, int>(nextLine, nextColumn);
+			if (nextLine != beforeLine || nextColumn != beforeColumn)
+			{
+				if (checkHexagonNeighbour(neighbourPosition, matrix, color) && (std::get<3>(matrix[nextLine][nextColumn]) == 0 || std::get<3>(matrix[nextLine][nextColumn]) == 1))
+				{
+					int tempSteps = steps;
+					havannahCircle(nextLine, nextColumn, actualLine, actualColumn, startLine, startColumn, tempSteps + 1, isCircle, matrix, color, mark);
+					steps = tempSteps;
+				}
+			}
+		}
+	}
+}
+
+bool HavannahRules::havannahCircleWinningCondition(int matrixLine, int matrixColumn, std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>>>& matrix, sf::Color color, const int mark)
+{
+	int actualLine = matrixLine, actualColumn = matrixColumn, beforeLine = -1, beforeColumn = -1, startLine = matrixLine, startColumn = matrixColumn, steps = 0;
+	bool isCircle = false;
+	havannahCircle(actualLine, actualColumn, beforeLine, beforeColumn, startLine, startColumn, steps, isCircle, matrix, color, mark);
+	if (isCircle == true)
 		return true;
 	return false;
 }
