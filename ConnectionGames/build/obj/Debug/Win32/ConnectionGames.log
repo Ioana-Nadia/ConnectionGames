@@ -38,8 +38,8 @@ C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\Board.cpp(102,21):
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(98,28): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(106,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(168,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(170,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(165,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HavannahRules.cpp(167,21): warning C4018: '<': signed/unsigned mismatch
   HexRules.cpp
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(101,28): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\HexRules.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
@@ -62,6 +62,7 @@ C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(84,28):
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(112,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\YRules.cpp(114,21): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
+  LINK : C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe not found or not built by the last incremental link; performing full link
   ConnectionGames.vcxproj -> C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\build\bin\Debug\Win32\ConnectionGames.exe
   C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\openal32.dll
   C:\Users\Ioana\Desktop\github\ConnectionGames\ConnectionGames\ThirdParty\bin\Win32\sfml-audio-2.dll

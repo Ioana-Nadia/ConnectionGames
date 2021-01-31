@@ -230,15 +230,25 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 					{
 						std::vector<std::pair<int, int>> edgesIndices;
 						std::vector<bool> foundEdges;
+						sf::Color playerColor = currentTurn.getPlayerColor();
 						if (chosenGameIndice == 1)
 						{
 							const int havannahCornersNumber = 6;
 							std::vector<bool> foundCorners;
 							std::array<std::pair<int, int>, havannahCornersNumber> havannahCorners;
-							HavannahRules obj(edgesIndices, foundEdges , havannahCorners, foundCorners);
+							HavannahRules obj(edgesIndices, foundEdges, havannahCorners, foundCorners);
 							std::pair<int, int> newPair = std::pair<int, int>(matrixLine, matrixColumn);
-							if(obj.havannahBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices, havannahCorners, foundCorners) == true)
-								std::cout << "Havannah Game won!";
+							if ((obj.havannahBfs(foundEdges, matrixLine, matrixColumn, coordinatesMatrix, edgesIndices, havannahCorners, foundCorners) == true))
+								std::cout << "HAVANNAH game won!";
+							else
+							{
+								std::vector<std::vector<std::tuple<int, int, sf::CircleShape, int>> > dfsMatrix;
+								dfsMatrix = coordinatesMatrix;
+								const int mark = 2;
+								std::get<3>(dfsMatrix[matrixLine][matrixColumn]) = 1;
+								if (obj.havannahCircleWinningCondition(matrixLine, matrixColumn, dfsMatrix, playerColor, mark) == true)
+									std::cout << "HAVANNAH game won!";
+							}
 						}
 						else
 						{
