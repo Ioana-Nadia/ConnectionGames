@@ -182,10 +182,12 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 	boardFont.loadFromFile("arial.TTF");
 	sf::Text boardText;
 	configurePieRule(rectButton, boardText, boardFont);
-	sf::SoundBuffer Buffer;
+	sf::SoundBuffer Buffer, bufferPiece;
+	bufferPiece.loadFromFile("hexClick.wav");
 	Buffer.loadFromFile("pieRuleRing.wav");
-	sf::Sound sound;
+	sf::Sound sound, pieceSound;
 	sound.setBuffer(Buffer);
+	pieceSound.setBuffer(bufferPiece);
 	while (window.isOpen())
 	{
 		window.draw(windowSprite);
@@ -198,10 +200,6 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 		window.draw(rectButton);
 		window.draw(boardText);
 		repaint(window);
-		if (moveNumber == 1)
-		{
-			sound.play();
-		}
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -231,6 +229,7 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 						std::vector<std::pair<int, int>> edgesIndices;
 						std::vector<bool> foundEdges;
 						sf::Color playerColor = currentTurn.getPlayerColor();
+						pieceSound.play();
 						if (chosenGameIndice == 1)
 						{
 							const int havannahCornersNumber = 6;
@@ -273,6 +272,8 @@ void Board::playGame(int xCoord, int yCoord, int shapeSide, int maxCol, int maxD
 					}
 					if (moveNumber == 2)
 						deactivatePieRuleButton(rectButton, boardText);
+					else if (moveNumber == 1)
+						sound.play();
 				}
 				break;
 			}
